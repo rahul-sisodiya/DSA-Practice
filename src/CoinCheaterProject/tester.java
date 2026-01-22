@@ -1,29 +1,37 @@
 package CoinCheaterProject;
 
+import java.util.ArrayList;
+
 public class tester {
     static void main(String[] args) {
-        int chead = 0;
-        int ctail = 0;
-        int head = 0;
-        int tail = 0;
-        Blob cuser = new Blob(true);
-        Blob user = new Blob(false);
-        for(int i = 0; i<Integer.MAX_VALUE; i++){
-            if(cuser.toss()) {
-                chead++;
-            }else{
-                ctail++;
-            }
-            if(user.toss()){
-                head++;
-            }else{
-                tail++;
+
+        ArrayList<Blob> list = new ArrayList<>();
+        for(int i = 0; i<1000; i++){
+            if(i>=500){
+                list.add(new Blob(false));
+            }else {
+                list.add(new Blob(true));
             }
         }
-        System.out.println("user" +":- heads = "+head+" tails= "+tail);
-        System.out.println("cuser" +":- heads = "+chead+" tails= "+ctail);
+//        Blob player = new Blob(true);
+        Detective conor = new Detective();
+        int cheater = 0;
+        int notCheater = 0;
+        int guessedWrongCheater = 0;
+       for(Blob player : list){
+
+           if(conor.Inquire(player,5)){
+               if(!player.cheater) guessedWrongCheater++;
+               cheater++;
+           }else{
+               notCheater++;
+           }
+       }
+
+        System.out.println("cheater = "+ cheater);
 
 
-
+        System.out.println("not cheater = "+ notCheater);
+        System.out.println("geussWrongCheater = "+ guessedWrongCheater);
     }
 }
